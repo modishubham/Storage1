@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".SqlLiteActivity">
+
+        <TextView
+            android:id="@+id/tv_sqlLite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="SqlLite Example"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/et1_sqllitename"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:drawableLeft="@drawable/ic_person_black"
+            android:drawablePadding="10dp"
+            android:hint="Name"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sqlLite" />
+
+        <EditText
+            android:id="@+id/et2_sqlliteage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:drawableLeft="@drawable/ic_arrow_upward_black"
+            android:drawablePadding="10dp"
+            android:hint="Age"
+            android:inputType="number"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et1_sqllitename" />
+
+        <EditText
+            android:id="@+id/et3_sqlliteaddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:drawableLeft="@drawable/ic_map_black"
+            android:drawablePadding="10dp"
+            android:hint="Address"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et2_sqlliteage" />
+
+        <Button
+            android:id="@+id/btn1_sqllite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="#919191"
+            android:text="Insert"
+            android:textColor="#fff"
+            app:layout_constraintEnd_toStartOf="@+id/btn2_sqllite"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et3_sqlliteaddress" />
+
+        <EditText
+            android:id="@+id/et4_sqllitesearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="Enter name to get data"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn1_sqllite" />
+
+        <Button
+            android:id="@+id/btn2_sqllite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="#a95682"
+            android:text="Get"
+            android:textColor="#fff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn1_sqllite"
+            app:layout_constraintTop_toBottomOf="@id/et4_sqllitesearch" />
+
+        <Button
+            android:id="@+id/btn3_sqllite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="#a95682"
+            android:text="Delete"
+            android:textColor="#fff"
+            app:layout_constraintEnd_toStartOf="@+id/btn2_sqllite"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et4_sqllitesearch" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
