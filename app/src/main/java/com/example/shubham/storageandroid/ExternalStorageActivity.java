@@ -1,7 +1,11 @@
 package com.example.shubham.storageandroid;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,11 +32,14 @@ public class ExternalStorageActivity extends AppCompatActivity {
     private RadioButton radioSelection;
     FileOutputStream fileOutputStream;
     FileInputStream fileInputStream;
+    private static final int EXTERNAL_STORAGE_WRITE_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_external_storage);
+
+        askPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, EXTERNAL_STORAGE_WRITE_CODE);
 
         button1 = findViewById(R.id.button1ES);
         button2 = findViewById(R.id.button2ES);
@@ -43,20 +50,24 @@ public class ExternalStorageActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String data = editText.getText().toString();
-                int radioId = radioGroup.getCheckedRadioButtonId();
-                if (radioId > 0) {
-                    radioSelection = findViewById(radioId);
-                    String selection = radioSelection.getText().toString();
-                    if (selection.equals("Private External Storage")) {
-                        saveDataPrivateInExternalStorage(data);
-                    } else if (selection.equals("Public External Storage")) {
-                        saveDataPublicInExternalStorage(data);
+                if(askPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, EXTERNAL_STORAGE_WRITE_CODE)) {
+                    String data = editText.getText().toString();
+                    int radioId = radioGroup.getCheckedRadioButtonId();
+                    if (radioId > 0) {
+                        radioSelection = findViewById(radioId);
+                        String selection = radioSelection.getText().toString();
+                        if (selection.equals("Private External Storage")) {
+                            saveDataPrivateInExternalStorage(data);
+                        } else if (selection.equals("Public External Storage")) {
+                            saveDataPublicInExternalStorage(data);
+                        } else {
+                            Toast.makeText(getBaseContext(), "Please select option", Toast.LENGTH_LONG).show();
+                        }
                     } else {
                         Toast.makeText(getBaseContext(), "Please select option", Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Toast.makeText(getBaseContext(), "Please select option", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Permission is required", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -64,19 +75,23 @@ public class ExternalStorageActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int radioId = radioGroup.getCheckedRadioButtonId();
-                if (radioId > 0) {
-                    radioSelection = findViewById(radioId);
-                    String selection = radioSelection.getText().toString();
-                    if (selection.equals("Private External Storage")) {
-                        getDataFromPrivateExternalStorage();
-                    } else if (selection.equals("Public External Storage")) {
-                        getDataFromPublicExternalStorage();
+                if(askPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, EXTERNAL_STORAGE_WRITE_CODE)) {
+                    int radioId = radioGroup.getCheckedRadioButtonId();
+                    if (radioId > 0) {
+                        radioSelection = findViewById(radioId);
+                        String selection = radioSelection.getText().toString();
+                        if (selection.equals("Private External Storage")) {
+                            getDataFromPrivateExternalStorage();
+                        } else if (selection.equals("Public External Storage")) {
+                            getDataFromPublicExternalStorage();
+                        } else {
+                            Toast.makeText(getBaseContext(), "Please select option", Toast.LENGTH_LONG).show();
+                        }
                     } else {
                         Toast.makeText(getBaseContext(), "Please select option", Toast.LENGTH_LONG).show();
                     }
-                } else {
-                    Toast.makeText(getBaseContext(), "Please select option", Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(getBaseContext(), "Permission is required", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -150,5 +165,15 @@ public class ExternalStorageActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+
+    private boolean askPermission(String permission,int requestCode) {
+        if(ContextCompat.checkSelfPermission(this, permission)!= PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
+        } else {
+            Toast.makeText(this,"permission is already granted",Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return false;
     }
 }
